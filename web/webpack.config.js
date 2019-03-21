@@ -67,34 +67,20 @@ module.exports = {
 	},
 
 	entry: {
-		app: './js/main.js',
+		app: './js/main.js'
 	},
 
 	output: {
-		filename: '[name].[chunkhash].js'
+		filename: 'app-bundle.js'
 	},
 
 	mode: 'development',
 
-	optimization: {
-		splitChunks: {
-			cacheGroups: {
-				vendors: {
-					priority: -10,
-					test: /[\\/]node_modules[\\/]/
-				}
-			},
-
-			chunks: 'async',
-			minChunks: 1,
-			minSize: 30000,
-			name: true
-		}
-	},
 	plugins: [
 		new HtmlWebPackPlugin({
-		  template: "./html/index.html",
-		  filename: "./index.html"
+		  template: "./html/index.ejs",
+		  filename: "./index.html",
+		  inject: false
 		})
 	]
 };
