@@ -7,6 +7,6 @@ window.onload = () => {
   });
 
   webview.addEventListener('dom-ready', () => {
-    // webview.openDevTools();
+    webview.openDevTools();
   });
 }
