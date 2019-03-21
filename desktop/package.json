@@ -1,0 +1,23 @@
+{
+  "name": "music-match-desktop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hmiguellima/musicmatch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hmiguellima/musicmatch/issues"
+  },
+  "homepage": "https://github.com/hmiguellima/musicmatch#readme",
+  "dependencies": {
+    "electron": "^4.1.1"
+  }
+}
