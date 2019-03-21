@@ -76,6 +76,10 @@ module.exports = {
 
 	mode: 'development',
 
+	devServer: {
+		hot: true
+	},
+
 	plugins: [
 		new HtmlWebPackPlugin({
 		  template: "./html/index.ejs",
