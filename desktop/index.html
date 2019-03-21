@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <link href="./styles.css" rel="stylesheet" type="text/css">
+    <div class="indicator">loading...</div>
+    <webview src="http://localhost:8080/" preload="./preload.js" nodeintegration></webview>
+
+    <script>
+      require('./renderer.js')
+    </script>
+  </body>
+</html>

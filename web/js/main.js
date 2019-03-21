@@ -18,3 +18,10 @@ aframe.registerComponent('table', {
         }
     }
 });
+
+
+if (window.fsApi) {
+    window.fsApi.mkdir('/tmp/musicmatch/a', { recursive: true }, (err) => {
+        if (err) throw err;
+    });      
+}
