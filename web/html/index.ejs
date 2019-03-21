@@ -2,17 +2,44 @@
     <!DOCTYPE html>
     <head>
       <script src="app-bundle.js"></script>
+      <!-- Environment component -->
+      <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
     </head>
     <body>
       <a-scene>
-          <a-assets></a-assets>
-          <a-entity>
-            <a-camera></a-camera>
-            <a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
-            <a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
-          </a-entity>
-          <!-- hover & drag-drop won't have any obvious effect without some additional event handlers or components. See the examples page for more -->
-          <a-box hoverable grabbable stretchable draggable dropppable color="blue" position="0 0 -1"></a-box>
-        </a-scene>
+        <a-assets>
+            <audio src="https://freesound.org/data/previews/57/57941_308-lq.mp3" 
+              preload>
+            </audio>
+        </a-assets>
+        <!-- Camera-->
+        <a-entity camera look-controls position="0 3 0">
+            <a-camera
+              position="0 1 4"
+              cursor-visible="true"
+              cursor-scale="2"
+              cursor-color="#0095DD"
+              cursor-opacity="0.5">
+            </a-camera>
+            <a-entity sphere-collider="objects: a-gltf-model" super-hands hand-controls="left"></a-entity>
+            <a-entity sphere-collider="objects: a-gltf-model" super-hands hand-controls="right"></a-entity>
+        </a-entity>
+        <!-- Vinyl Player -->
+        <a-gltf-model 
+          src="../assets/vinyl-player/scene.gltf" 
+          position="2.009 3.404 0" 
+          scale="0.25 0.25 0.25"/>
+        </a-gltf-model>
+        <!-- Table -->
+        <a-gltf-model 
+          src="../assets/table/scene.gltf" 
+          scale="0.1 0.1 0.1">
+        </a-gltf-model>
+        <!-- Lights -->
+        <a-light type="ambient" color="#445451"></a-light>
+        <a-light type="point" intensity="" position="2 4 4"></a-light>
+        <!-- Environament -->
+        <a-entity environment="preset: tron; dressingAmount: 500"></a-entity>
+      </a-scene>
     </body>
 </html>
