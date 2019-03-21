@@ -1,7 +1,7 @@
 import aframe from 'aframe';
 import 'super-hands';
 import 'aframe-extras';
-import './multisrc';
+import 'aframe-teleport-controls';
 
 aframe.registerComponent('table', {
     init: function() {

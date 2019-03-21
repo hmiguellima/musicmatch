@@ -2,10 +2,15 @@
 <html>
     <head>
       <script src="app-bundle.js"></script>
+      <!-- Environment component -->
+      <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
     </head>
     <body>
       <a-scene>
           <a-assets>
+              <audio id="sampleAudio" src="https://freesound.org/data/previews/57/57941_308-lq.mp3" 
+                preload>
+              </audio>
               <img id="sampleDisc" src="../assets/samples/disc1.png">
               <a-mixin id="pointer" raycaster="showLine: true; objects: .cube, a-link"
                         super-hands="colliderEvent: raycaster-intersection;
@@ -29,13 +34,36 @@
                       event-set__dragoff="_event: dragover-end; material.wireframe: false">
               </a-mixin>
           </a-assets>
-          <a-entity>
-              <a-entity id="rhand" mixin="controller-right"></a-entity>
+
+          <!-- Camera-->
+          <a-entity id="cameraRig">
+              <a-entity id="head" camera look-controls position="0 1.6 0"></a-entity>
+              <a-entity id="rhand" mixin="controller-right" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;"></a-entity>
               <a-entity id="lhand" mixin="controller-left"></a-entity>
           </a-entity>
 
-          <a-entity id="discCollection" position="0 0 0" table>
+          <a-entity scale="0.3 0.3 0.3">
+              <a-entity id="discCollection" position="-3 3.1 0" table>
+              </a-entity>
+
+              <!-- Vinyl Player -->
+              <a-gltf-model 
+                src="../assets/vinyl-player/scene.gltf" 
+                position="2.009 3.404 0" 
+                scale="0.25 0.25 0.25"/>
+              </a-gltf-model>
+              <!-- Table -->
+              <a-gltf-model 
+                src="../assets/table/scene.gltf" 
+                scale="0.1 0.1 0.1">
+              </a-gltf-model>
           </a-entity>
-        </a-scene>
+
+          <!-- Lights -->
+          <a-light type="ambient" color="#445451"></a-light>
+          <a-light type="point" intensity="" position="2 4 4"></a-light>
+          <!-- Environament -->
+          <a-entity environment="preset: tron; dressingAmount: 500"></a-entity>
+      </a-scene>
     </body>
 </html>
