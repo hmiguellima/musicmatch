@@ -1,9 +1,25 @@
 const fs = require('fs');
 const path = require('path');
+const ID3 = require('id3-parser');
+// const universalParse = require('id3-parser/lib/universal');
 
 let currentPath = '/';
 
 class Track {
+    constructor(filePath) {
+        const file = fs.readFileSync(filePath);
+        this._tag = ID3.parse(file);
+    }
+
+    get album() { return this._tag.album; }
+
+    get artist() { return this._tag.artist; }
+
+    get image() { return this._tag.image; }
+
+    get title() { return this._tag.title; }
+
+    get year() { return this._tag.year; }
 }
 
 window.fsApi = {
