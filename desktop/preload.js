@@ -16,11 +16,16 @@ class Track {
 
     get artist() { return this._tag.artist; }
 
-    get image() { return this._tag.image; }
-
     get title() { return this._tag.title; }
 
     get year() { return this._tag.year; }
+
+    get cover() {
+        const mimeType = this._tag.image.mime;
+        const imageBuffer = this._tag.image.data;
+        const base64Data = imageBuffer.toString('base64');
+        return `data:${mimeType};base64,${base64Data}`;
+    }
 }
 
 window.fsApi = {
