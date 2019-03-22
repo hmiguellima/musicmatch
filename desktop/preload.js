@@ -7,6 +7,7 @@ let currentPath = '/';
 
 class Track {
     constructor(filePath) {
+        this.filePath = filePath;
         const file = fs.readFileSync(filePath);
         this._tag = ID3.parse(file);
     }
