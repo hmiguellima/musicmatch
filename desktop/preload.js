@@ -3,13 +3,7 @@ const path = require('path');
 
 let currentPath = '/';
 
-function buildTrack(folderName, fileName) {
-    const filePath = path.join(currentPath, folderName, fileName);
-    const file = fs.readFileSync(filePath);
-    const track = {
-        name: fileName
-    }
-    return track;
+class Track {
 }
 
 window.fsApi = {
@@ -18,9 +12,10 @@ window.fsApi = {
     },
     openFolder: (folderName) => {
         const folderPath = path.join(currentPath, folderName);
-        const fileNames = fs.readdirSync(folderPath);
-        return fileNames.map(function(fileName) {
-            return buildTrack(folderName, fileName);
-        });
+        const directoryEntries = fs.readdirSync(folderPath, { withFileTypes: true });
+        return directoryEntries
+            .filter(directoryEntry => directoryEntry.isFile())
+            .map(directoryEntry => path.join(currentPath, folderName, directoryEntry.name))
+            .map(filePath => new Track(filePath));
     }
 };
