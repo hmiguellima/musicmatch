@@ -10,6 +10,13 @@
                         sphere-collider="objects: .disc"
                         super-hands>
               </a-mixin>
+              <a-mixin id="transformer" color-randomizer droppable static-body
+                      collision-filter="collisionForces: false"
+                      event-set__dragon="_event: dragover-start; material.wireframe: true"
+                      event-set__dragoff="_event: dragover-end; material.wireframe: false"
+                      geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5">
+              </a-mixin>
+
               <a-mixin id="controller-right" mixin="touch"
                       windows-motion-controls="hand: right">
               </a-mixin>
@@ -27,12 +34,15 @@
               <a-entity id="rhand" mixin="controller-right" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;"></a-entity>
             </a-entity>
 
-            <a-entity id="discCollection" position="-0.8 1 0.7" discs>
+            <a-entity id="discCollection" position="-0.85 1 0.7" discs>
             </a-entity>
 
             <a-entity scale="0.3 0.3 0.3">
               <!-- Vinyl Player -->
               <a-gltf-model
+                mixin="transformer"
+                droppable="acceptEvent: play-disc, accepts: .disc"
+                turntable
                 src="../assets/vinyl-player/scene.gltf" 
                 position="2.009 3.404 0" 
                 scale="0.25 0.25 0.25">

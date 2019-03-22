@@ -92,14 +92,35 @@ aframe.registerComponent('discs', {
     init: function() {
         const el = this.el;
 
-        for (let i=0; i<openDiscs.length; i++) {
-            const disc = document.createElement('a-entity');
+        setTimeout(() => {
+            for (let i=0; i<openDiscs.length; i++) {
+                const disc = document.createElement('a-entity');
+    
+                disc.setAttribute('class', 'disc');
+                disc.setAttribute('mixin', 'disc');
+                disc.setAttribute('position', {x: (i % 4) * 0.28, y: 0, z: -Math.trunc(i / 4)  * 0.28});
+                disc.setAttribute('material', `src:${openDiscs[i].cover}`);
+                disc.addEventListener('dragover-start', function(ev) {
+                    console.log('dragover-start', ev, ev.target, ev.currentTarget, ev.srcElement);
+                });
+                el.appendChild(disc);    
+            }
+        }, 100);
+    }
+});
 
-            disc.setAttribute('class', 'disc');
-            disc.setAttribute('mixin', 'disc');
-            disc.setAttribute('position', {x: (i % 5) * 0.28, y: 0, z: -Math.trunc(i / 5)  * 0.28});
-            disc.setAttribute('material', `src:${openDiscs[i].cover}`);
-            el.appendChild(disc);    
-        }
+aframe.registerComponent('turntable', {
+    init: function() {
+        const el = this.el;
+        el.addEventListener('play-disc', (ev) => {console.log('play-disc', ev)});
+    }
+});
+
+aframe.registerComponent('color-randomizer', {
+    play: function () {
+      this.el.addEventListener('drag-drop', function (evt) {
+        evt.detail.dropped.setAttribute('material', 'color',
+          '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+      })
     }
 });
