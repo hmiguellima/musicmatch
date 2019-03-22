@@ -7,11 +7,18 @@
     </head>
     <body>
       <a-scene>
+
+        <!-- Preload Assets -->
         <a-assets>
-            <audio src="https://freesound.org/data/previews/57/57941_308-lq.mp3" 
+            <audio crossorigin="anonymous" src="https://freesound.org/data/previews/57/57941_308-lq.mp3" 
               preload>
             </audio>
+            <!-- 3D Models -->
+            <a-asset-item id="table" src="../assets/table/scene.gltf"></a-asset-item>
+            <a-asset-item id="vinyl-record" src="../assets/vinyl-record/vinyl-record.gltf"></a-asset-item>
+            <a-asset-item id="vinyl-player" src="../assets/vinyl-player/scene.gltf"></a-asset-item>
         </a-assets>
+
         <!-- Camera-->
         <a-entity camera look-controls position="0 3 0">
             <a-camera
@@ -24,22 +31,42 @@
             <a-entity sphere-collider="objects: a-gltf-model" super-hands hand-controls="left"></a-entity>
             <a-entity sphere-collider="objects: a-gltf-model" super-hands hand-controls="right"></a-entity>
         </a-entity>
+
+        <!-- Vynil Disc -->
+        <a-entity  gltf-model="#vinyl-record" modify-materials scale="4 4 4" position="-2 4.503 0"></a-entity>
+
         <!-- Vinyl Player -->
-        <a-gltf-model 
-          src="../assets/vinyl-player/scene.gltf" 
-          position="2.009 3.404 0" 
-          scale="0.25 0.25 0.25"/>
-        </a-gltf-model>
+        <a-entity gltf-model="#vinyl-player" position="2.009 3.404 0" scale="0.25 0.25 0.25"/></a-entity>
+
         <!-- Table -->
-        <a-gltf-model 
-          src="../assets/table/scene.gltf" 
-          scale="0.1 0.1 0.1">
-        </a-gltf-model>
+        <a-entity gltf-model="#table" scale="0.1 0.1 0.1"></a-entity>
+
         <!-- Lights -->
         <a-light type="ambient" color="#445451"></a-light>
         <a-light type="point" intensity="" position="2 4 4"></a-light>
+
         <!-- Environament -->
         <a-entity environment="preset: tron; dressingAmount: 500"></a-entity>
+
       </a-scene>
+
+      <script>
+          AFRAME.registerComponent('modify-materials', {
+            init: function () {
+              this.el.addEventListener('model-loaded', () => {
+                const obj = this.el.getObject3D('mesh');
+                obj.traverse(node => {
+                  if (node.name === 'buffer-0-mesh-0_2') {
+                    //let tex = new THREE.TextureLoader().load("../assets/mishlawi.jpg");
+                    //tex.repeat.set(1, 1);
+                    //node.material.map = tex;
+                    node.material.color.set("red");
+                    console.log(node);
+                  }
+                });
+              });
+            }
+          });
+      </script>
     </body>
 </html>
