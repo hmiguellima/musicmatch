@@ -2,16 +2,13 @@ import 'aframe';
 import 'super-hands';
 import 'aframe-extras';
 
-const baseFolder = '/tmp/musicmatch';
-
-
-// Just make sure we have some folders and files
-window.fs.mkdir(`${baseFolder}/rock`, { recursive: true }, (err) => {
-  if (err) throw err;
-});
-fs.writeFileSync(`${baseFolder}/rock/example.txt`, 'exampleText');
-
+const baseFolder = '/';
 
 window.fsApi.cd(baseFolder);
-const tracks = window.fsApi.openFolder('rock');
-console.log(tracks);
+const folders = window.fsApi.getFolders();
+console.log(folders);
+const rockFolder = folders.find(folder => folder.name === 'rock');
+if (rockFolder) {
+  const tracks = rockFolder.open();
+  console.log(tracks);
+}
