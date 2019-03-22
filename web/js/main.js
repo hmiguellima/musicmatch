@@ -5,11 +5,6 @@ import 'aframe-teleport-controls';
 import 'aframe-environment-component';
 import 'aframe-event-set-component';
 
-/*
-import 'aframe-physics-system';
-import 'aframe-physics-extras';
-*/
-
 let openDiscs = [
     {
         name: 'Music 1',
@@ -98,72 +93,13 @@ aframe.registerComponent('discs', {
         const el = this.el;
 
         for (let i=0; i<openDiscs.length; i++) {
-            const disc = document.createElement('a-box');
+            const disc = document.createElement('a-entity');
 
-            disc.setAttribute('class', 'cube');
-            //disc.setAttribute('mixin', 'cube');
-            disc.setAttribute('hoverable', '');
-            disc.setAttribute('grabbable', '');
-            disc.setAttribute('stretchable', '');
-            disc.setAttribute('draggable', '');
-            disc.setAttribute('dropppable', '');
-            disc.setAttribute('width', 0.2);
-            disc.setAttribute('height', 0.2);
-            disc.setAttribute('depth', 0.2);
-            disc.setAttribute('src', `${openDiscs[i].cover}`);
-
-            disc.setAttribute('position', {x: (i % 5) * 0.8, y: 0, z: -Math.trunc(i / 5)  * 0.8});
-            // disc.setAttribute('material', `src:${openDiscs[i].cover}`);
+            disc.setAttribute('class', 'disc');
+            disc.setAttribute('mixin', 'disc');
+            disc.setAttribute('position', {x: (i % 5) * 0.28, y: 0, z: -Math.trunc(i / 5)  * 0.28});
+            disc.setAttribute('material', `src:${openDiscs[i].cover}`);
             el.appendChild(disc);    
         }
     }
 });
-
-function createDiscCollection() {
-    let el = document.getElementById('discCollection');
-    for (let i=0; i<openDiscs.length; i++) {
-        const disc = document.createElement('a-box');
-
-        disc.setAttribute('class', 'cube');
-        disc.setAttribute('mixin', 'scube');
-        disc.setAttribute('width', 0.2);
-        disc.setAttribute('height', 0.2);
-        disc.setAttribute('depth', 0.2);
-        disc.setAttribute('src', `${openDiscs[i].cover}`);
-
-        disc.setAttribute('position', {x: (i % 5) * 0.8, y: 0, z: -Math.trunc(i / 5)  * 0.8});
-        // disc.setAttribute('material', `src:${openDiscs[i].cover}`);
-        el.appendChild(disc);
-    }
-}
-
-
-window.onload = function WindowLoad(event) {
-   //createDiscCollection();
-}
-
-
-aframe.registerComponent('testlog', {
-    init: function() {
-        this.el.addEventListener('gripdown', () => {
-            console.log('gripdown');
-        });
-        this.el.addEventListener('gripup', () => {
-            console.log('gripup');
-        });
-    }
-});
-
-aframe.registerComponent('testhover', {
-    init: function() {
-        this.el.addEventListener('hover-start', () => {
-            console.log('hover-start');
-        });
-    }
-});
-
-if (window.fsApi) {
-    window.fsApi.mkdir('/tmp/musicmatch/a', { recursive: true }, (err) => {
-        if (err) throw err;
-    });      
-}

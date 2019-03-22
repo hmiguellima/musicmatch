@@ -7,42 +7,38 @@
       <a-scene>
           <a-assets>
               <a-mixin id="touch"
-                        sphere-collider="objects: .cube"
+                        sphere-collider="objects: .disc"
                         super-hands>
               </a-mixin>
               <a-mixin id="controller-right" mixin="touch"
-                        hand-controls="right">
+                      windows-motion-controls="hand: right">
               </a-mixin>
-              <a-mixin id="cube" testhover geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5"
+              <a-mixin id="disc" geometry="primitive: box; width: 0.18; height: 0.18; depth: 0.18"
                   hoverable grabbable stretchable draggable
                   event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
                   event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
                   dynamic-body shadow>
               </a-mixin>
-              <a-mixin id="scube" hoverable grabbable stretchable draggable></a-mixin>
           </a-assets>
 
           <!-- Camera-->
           <a-entity id="cameraRig">
               <a-entity id="head" camera look-controls position="0 1.6 0"></a-entity>
-              <!--
-              <a-entity id="rhand" testlog mixin="controller-right" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;"></a-entity>
-              -->
-              <a-entity sphere-collider="objects: .cube" super-hands hand-controls="right"></a-entity>
+              <a-entity id="rhand" mixin="controller-right" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;"></a-entity>
             </a-entity>
 
-            <a-entity id="discCollection" position="-2.1 1 0.7">
+            <a-entity id="discCollection" position="-0.8 1 0.7" discs>
             </a-entity>
 
-            <a-entity>
+            <a-entity scale="0.3 0.3 0.3">
               <!-- Vinyl Player -->
-              <a-gltf-model hoverable testhover
+              <a-gltf-model
                 src="../assets/vinyl-player/scene.gltf" 
                 position="2.009 3.404 0" 
                 scale="0.25 0.25 0.25">
               </a-gltf-model>
               <!-- Table -->
-              <a-gltf-model hoverable testhover
+              <a-gltf-model
                 src="../assets/table/scene.gltf" 
                 scale="0.1 0.1 0.1">
               </a-gltf-model>
