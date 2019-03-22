@@ -32,6 +32,7 @@ window.fsApi = {
         return directoryEntries
             .filter(directoryEntry => directoryEntry.isFile())
             .map(directoryEntry => path.join(currentPath, folderName, directoryEntry.name))
+            .filter(filePath => path.extname(filePath) === '.mp3')
             .map(filePath => new Track(filePath));
     }
 };
