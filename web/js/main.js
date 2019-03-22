@@ -6,23 +6,32 @@ const baseFolder = '/Users/nvi05/Documents/MusicMatchLibrary';
 window.fsApi.cd(baseFolder);
 const folders = window.fsApi.getFolders();
 const rockFolder = folders.find(folder => folder.name === 'rock');
-let track;
-if (rockFolder) {
-  const tracks = rockFolder.open();
-  track = tracks[0];
-}
-
 let audio;
 
 window.onload = () => {
-  if (track) {
-    audio = document.querySelector("audio");
-
-    const trackEl = document.querySelector("#track");
-    trackEl.setAttribute("data-file", track.filePath);
-
-    const coverEl = trackEl.querySelector(".cover");
-    coverEl.setAttribute("src", track.cover);
+  audio = document.querySelector("audio");
+  if (rockFolder) {
+    const tracks = rockFolder.open();
+    const sceneEl = document.querySelector('a-scene');
+    let posX = -2.333;
+    console.log(tracks);
+    for (const track of tracks) {
+      const vinylEl = document.createElement('a-entity');
+      vinylEl.setAttribute('vinyl', "");
+      vinylEl.setAttribute('data-audio-file', track.filePath)
+      const trackEl = document.createElement('a-box');
+      trackEl.setAttribute('src', track.cover);
+      trackEl.setAttribute('class', 'cover');
+      trackEl.setAttribute('rotation', '90 180 0');
+      trackEl.setAttribute('position', `${posX} 2.973 0`);
+      trackEl.setAttribute('depth', '0.04');
+      trackEl.setAttribute('width', '1.2');
+      trackEl.setAttribute('height', '1.2');
+      trackEl.setAttribute('shader', 'flat');
+      vinylEl.appendChild(trackEl);
+      sceneEl.appendChild(vinylEl);
+      posX -= 2;
+    }
   }
 }
 
@@ -31,7 +40,7 @@ AFRAME.registerComponent('vinyl', {
      let playing = false;
      this.el.addEventListener('click', (event) => {
           const trackEl = event.currentTarget;
-          audio.setAttribute("src", 'file://' + trackEl.getAttribute('data-file'));
+          audio.setAttribute('src', 'file://' + trackEl.getAttribute('data-audio-file'));
 
           if(!playing) {
               audio.play();
