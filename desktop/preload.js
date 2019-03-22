@@ -28,17 +28,31 @@ class Track {
     }
 }
 
+class Folder {
+    constructor(directoryPath) {
+        this.directoryPath = directoryPath;
+        this.name = path.basename(directoryPath);
+    }
+
+    open() {
+        const directoryEntries = fs.readdirSync(this.directoryPath, { withFileTypes: true });
+        return directoryEntries
+            .filter(directoryEntry => directoryEntry.isFile())
+            .map(directoryEntry => path.join(this.directoryPath, directoryEntry.name))
+            .filter(filePath => path.extname(filePath) === '.mp3')
+            .map(filePath => new Track(filePath));
+    }
+}
+
 window.fsApi = {
     cd: (path) => {
         currentPath = path;
     },
-    openFolder: (folderName) => {
-        const folderPath = path.join(currentPath, folderName);
-        const directoryEntries = fs.readdirSync(folderPath, { withFileTypes: true });
+    getFolders: () => {
+        const directoryEntries = fs.readdirSync(currentPath, { withFileTypes: true });
         return directoryEntries
-            .filter(directoryEntry => directoryEntry.isFile())
-            .map(directoryEntry => path.join(currentPath, folderName, directoryEntry.name))
-            .filter(filePath => path.extname(filePath) === '.mp3')
-            .map(filePath => new Track(filePath));
-    }
+            .filter(directoryEntry => directoryEntry.isDirectory())
+            .map(directoryEntry => path.join(currentPath, directoryEntry.name))
+            .map(directoryPath => new Folder(directoryPath));
+    },
 };
